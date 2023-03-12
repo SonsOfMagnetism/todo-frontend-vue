@@ -18,10 +18,18 @@ import {ref, onMounted} from "vue" // import compostion API Hooks
       const url = "https://todosapp.herokuapp.com/todo"
       const posts = ref([])
       const getPosts = async () => {
-        const response = await fetch(url)
-        const data = await response.json()
-        posts.value = await data
-      }
+  try {
+    const response = await fetch(url)
+    if (response.ok) {
+      const data = await response.json()
+      posts.value = data
+    } else {
+      throw new Error(`HTTP error: ${response.status}`)
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
       onMounted(() => getPosts())
       return {
         posts,
