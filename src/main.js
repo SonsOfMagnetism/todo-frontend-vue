@@ -1,4 +1,15 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import { createWebHistory, createRouter } from 'vue-router'
+import routes from './routes'
+import "milligram"
 
-createApp(App).mount('#app')
+// Create router
+const router = createRouter({
+    // Create a web history
+    history: createWebHistory(),
+    // inject routes
+    routes,
+})
+
+createApp(App).use(router).mount('#app')
