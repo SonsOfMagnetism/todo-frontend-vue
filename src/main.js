@@ -12,4 +12,11 @@ const router = createRouter({
     routes,
 })
 
-createApp(App).use(router).mount('#app')
+//Create our vue application
+const app = createApp(App);
+
+// inject our router into our app
+app.use(router);
+
+// Mount our App to the DOM
+app.mount("#app");
