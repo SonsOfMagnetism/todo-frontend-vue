@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <h1>Shopping List</h1>
+    <router-link to="/new"><button>New Todo</button></router-link>
     <router-view :posts="posts" :url="url" :getPosts="getPosts"/>
   </div>
 </template>
