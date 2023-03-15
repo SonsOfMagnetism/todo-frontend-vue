@@ -3,8 +3,7 @@
 /////////////////////////
 import AllPosts from "./pages/AllPosts"
 import SinglePost from "./pages/SinglePost"
-import Form from "./pages/Form"
-
+import ShoppingList from "./pages/ShoppingList"
 /////////////////////////
 // Array of Routes
 /////////////////////////
@@ -14,7 +13,7 @@ export default [
     // page for seeing an individual todo
     {path: "/post/:id", component: SinglePost, name: "post"},
     // route for creating a new todo
-    {path: "/new", component: Form},
+    {path: "/new", component: ShoppingList},
     // route for updating a todo
-    {path: "/edit", component: Form},
+    {path: "/edit", component: ShoppingList},
 ]

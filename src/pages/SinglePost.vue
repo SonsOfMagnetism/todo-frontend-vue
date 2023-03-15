@@ -3,7 +3,7 @@
       <h1>{{post.title}}</h1>
       <h2>{{post.completed}}</h2>
       <router-link to="/"><button>Back to Main</button></router-link>
-      <router-link :to="{name: 'edit', params: {id: post.id}}"><button>Edit Todo</button></router-link>
+      <router-link :to="{ path: '/edit', params: { id: post._id } }"><button>Edit Todo</button></router-link>
       <button v-on:click="deletePost">Delete Todo</button>
   </div>
 </template>
@@ -26,8 +26,10 @@ import { toRefs } from 'vue';
             const {posts, url, getPosts} = toRefs(props)
             // grab target post from posts
             const post = posts.value[route.params.id]
+            console.log(url.value)
+            console.log(post._id)
             const deletePost = async () => {
-                await fetch(url.value + post.id + "/", {
+                await fetch(url.value + post._id + "/", {
                     method: "delete"
                 })
                 await getPosts.value()

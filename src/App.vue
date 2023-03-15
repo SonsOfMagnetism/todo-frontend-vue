@@ -16,7 +16,7 @@ import {ref, onMounted} from "vue" // import compostion API Hooks
     // Setup property allows us to use new composition api to define properties/methods
     // Returns an object with any properties/methods the component should have
     setup(props) {
-      const url = "https://todosapp.herokuapp.com/todo"
+      const url = "https://todosapp.herokuapp.com/todo/"
       const posts = ref([])
       const getPosts = async () => {
   try {

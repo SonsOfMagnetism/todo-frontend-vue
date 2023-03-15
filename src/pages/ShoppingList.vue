@@ -1,7 +1,7 @@
 <template>
     <form v-on:submit.prevent="handleSubmit">
-        <input type="text" placeholder="subject" v-model="subject"/>
-        <input type="text" placeholder="subject" v-model="details"/>
+        <input type="text" placeholder="subject" v-model="title"/>
+        <input type="text" placeholder="subject" v-model="completed"/>
         <input type="submit" :value="buttonLabel"/>
     </form>
 </template>
@@ -12,36 +12,38 @@
     // get vue hooks
     import {ref, toRefs} from "vue"
     export default {
-        name: "Form",
+        name: "ShoppingList",
         props: ["posts", "url", "getPosts"],
         setup(props) {
             const route = useRoute() // get route
-            const router = useRouter // get router
+            const router = useRouter() // get router
             const {posts, url, getPosts} = toRefs(props) //get posts from props
-            const subject = ref("") // variable for subject in form
-            const details = ref("") // variable for details in form
+            const title = ref("") // variable for subject in form
+            const completed = ref("") // variable for details in form
             console.log(url)
             let buttonLabel // label for submit button
             let handleSubmit // variable to hold submit function
             // If edit route setup for editing, if not setup for creating
-            if (route.name === "edit") {
+            
+            if (route.path === "/edit") {
                 // get post to be edited from posts
                 const post = posts.value.find((p) => p.id == route.params.id)
                 // fill the form with that posts values
-                subject.value = post.subject
-                details.value = post.details
+                title.value = post.title
+                completed.value = post.completed
+                console.log(post._id)
                 // label for submit button
                 buttonLabel = "edit todo"
                 // define function to update
                 handleSubmit = async() => {
-                    await fetch(url.value + route.params.id + "/", {
+                    await fetch(url.value + post._id + "/", {
                         method: "put",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            subject: subject.value,
-                            details: details.value,
+                            title: title.value,
+                            completed: completed.value,
                         })
                     })
                     getPosts.value()
@@ -58,8 +60,8 @@
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
-                            subject: subject.value,
-                            details: details.value
+                            title: title.value,
+                            completed: completed.value
                         })
                     })
                     getPosts.value()
@@ -67,8 +69,8 @@
                 }
             }
             return {
-                subject,
-                details,
+                title,
+                completed,
                 handleSubmit,
                 buttonLabel
             }
